@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
 import { Label } from "../components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { NotificationCenter } from "../components/NotificationCenter";
 import { 
   Hospital, 
   Users, 
@@ -143,9 +144,10 @@ export function ClinicDashboard() {
             </div>
             
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon">
-                <Bell className="w-5 h-5" />
-              </Button>
+              <NotificationCenter onPatientClick={(patientId) => {
+                const patient = mockPatients.find(p => p.id.toString() === patientId);
+                if (patient) setSelectedPatient(patient);
+              }} />
               <Button variant="ghost" size="icon">
                 <Settings className="w-5 h-5" />
               </Button>

@@ -88,10 +88,10 @@ export function LandingPage() {
               tracking history, and comprehensive reports for healthcare providers.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/patient">
+              <Link to="/mobile">
                 <Button size="lg" className="gap-2">
                   <Smartphone className="w-5 h-5" />
-                  Get Started Free
+                  Dùng thử Mobile App
                 </Button>
               </Link>
               <Link to="/clinic">
