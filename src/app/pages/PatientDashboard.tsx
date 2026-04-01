@@ -9,13 +9,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
-import { 
-  Pill, 
-  Bell, 
-  Calendar, 
-  Clock, 
-  Plus, 
-  Check, 
+import {
+  Pill,
+  Bell,
+  Calendar,
+  Clock,
+  Plus,
+  Check,
   X,
   Home,
   BarChart3,
@@ -24,6 +24,8 @@ import {
   User
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useLanguage } from "../contexts/LanguageContext";
+import { LanguageSwitcher } from "../components/LanguageSwitcher";
 
 // Mock data
 const mockMedications = [
@@ -85,6 +87,7 @@ const historyData = [
 ];
 
 export function PatientDashboard() {
+  const { t } = useLanguage();
   const [medications, setMedications] = useState(mockMedications);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
@@ -119,6 +122,7 @@ export function PatientDashboard() {
             </div>
             
             <div className="flex items-center gap-4">
+              <LanguageSwitcher />
               <Button variant="ghost" size="icon">
                 <Bell className="w-5 h-5" />
               </Button>
@@ -128,7 +132,7 @@ export function PatientDashboard() {
               <Link to="/">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <LogOut className="w-4 h-4" />
-                  <span className="hidden sm:inline">Logout</span>
+                  <span className="hidden sm:inline">{t('common.logout')}</span>
                 </Button>
               </Link>
             </div>
@@ -139,8 +143,8 @@ export function PatientDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, John!</h1>
-          <p className="text-gray-600">Today is Tuesday, March 31, 2026</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('patient.welcome')}, John!</h1>
+          <p className="text-gray-600">{t('patient.today')} Tuesday, March 31, 2026</p>
         </div>
 
         {/* Stats Cards */}
@@ -148,7 +152,7 @@ export function PatientDashboard() {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Today's Progress</p>
+                <p className="text-sm text-gray-600 mb-1">{t('patient.todayProgress')}</p>
                 <p className="text-3xl font-bold text-gray-900">{takenDoses}/{totalDoses}</p>
               </div>
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
@@ -156,46 +160,46 @@ export function PatientDashboard() {
               </div>
             </div>
             <Progress value={adherenceRate} className="mt-4" />
-            <p className="text-sm text-gray-600 mt-2">{adherenceRate}% adherence</p>
+            <p className="text-sm text-gray-600 mt-2">{adherenceRate}% {t('patient.adherence')}</p>
           </Card>
 
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Active Meds</p>
+                <p className="text-sm text-gray-600 mb-1">{t('patient.activeMeds')}</p>
                 <p className="text-3xl font-bold text-gray-900">{medications.length}</p>
               </div>
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                 <Calendar className="w-6 h-6 text-green-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-6">Medications tracked</p>
+            <p className="text-sm text-gray-600 mt-6">{t('patient.medicationsTracked')}</p>
           </Card>
 
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Weekly Rate</p>
+                <p className="text-sm text-gray-600 mb-1">{t('patient.weeklyRate')}</p>
                 <p className="text-3xl font-bold text-gray-900">95%</p>
               </div>
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
                 <BarChart3 className="w-6 h-6 text-purple-600" />
               </div>
             </div>
-            <p className="text-sm text-green-600 mt-6">↑ 5% from last week</p>
+            <p className="text-sm text-green-600 mt-6">↑ 5% {t('patient.fromLastWeek')}</p>
           </Card>
 
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 mb-1">Streak</p>
+                <p className="text-sm text-gray-600 mb-1">{t('patient.streak')}</p>
                 <p className="text-3xl font-bold text-gray-900">7</p>
               </div>
               <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
                 <Clock className="w-6 h-6 text-orange-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-6">Days in a row</p>
+            <p className="text-sm text-gray-600 mt-6">{t('patient.daysInRow')}</p>
           </Card>
         </div>
 
@@ -206,60 +210,65 @@ export function PatientDashboard() {
             <Tabs defaultValue="today" className="w-full">
               <div className="flex justify-between items-center mb-4">
                 <TabsList>
-                  <TabsTrigger value="today">Today's Schedule</TabsTrigger>
-                  <TabsTrigger value="all">All Medications</TabsTrigger>
-                  <TabsTrigger value="history">History</TabsTrigger>
+                  <TabsTrigger value="today">{t('patient.todaySchedule')}</TabsTrigger>
+                  <TabsTrigger value="all">{t('patient.allMedications')}</TabsTrigger>
+                  <TabsTrigger value="history">{t('patient.history')}</TabsTrigger>
                 </TabsList>
-                
+
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                   <DialogTrigger asChild>
                     <Button className="gap-2">
                       <Plus className="w-4 h-4" />
-                      Add Medication
+                      {t('patient.addMedication')}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>Add New Medication</DialogTitle>
+                      <DialogTitle>{t('patient.addNewMedication')}</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4 pt-4">
                       <div>
-                        <Label>Medication Name</Label>
-                        <Input placeholder="e.g., Aspirin" />
+                        <Label>{t('patient.medicationName')}</Label>
+                        <Input placeholder={t('placeholder.medication')} />
                       </div>
                       <div>
-                        <Label>Dosage</Label>
-                        <Input placeholder="e.g., 100mg" />
+                        <Label>{t('patient.dosage')}</Label>
+                        <Input placeholder={t('placeholder.dosage')} />
                       </div>
                       <div>
-                        <Label>Frequency</Label>
+                        <Label>{t('patient.frequency')}</Label>
                         <Select>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select frequency" />
+                            <SelectValue placeholder={t('placeholder.selectFrequency')} />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="once">Once daily</SelectItem>
-                            <SelectItem value="twice">Twice daily</SelectItem>
-                            <SelectItem value="thrice">Three times daily</SelectItem>
-                            <SelectItem value="custom">Custom</SelectItem>
+                            <SelectItem value="once">{t('frequency.once')}</SelectItem>
+                            <SelectItem value="twice">{t('frequency.twice')}</SelectItem>
+                            <SelectItem value="thrice">{t('frequency.thrice')}</SelectItem>
+                            <SelectItem value="custom">{t('frequency.custom')}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <Label>{t('patient.time')}</Label>
+                        <Input type="time" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <Label>Time</Label>
-                          <Input type="time" />
-                        </div>
-                        <div>
-                          <Label>Begin Date</Label>
+                          <Label>{t('patient.startDate')}</Label>
                           <Input type="date" />
                         </div>
                         <div>
-                          <Label>End Date</Label>
+                          <Label>{t('patient.endDate')}</Label>
                           <Input type="date" />
                         </div>
                       </div>
-                      <Button className="w-full">Add Medication</Button>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                        <p className="text-sm text-blue-800">
+                          💡 <strong>{t('patient.dateNote')}</strong>
+                        </p>
+                      </div>
+                      <Button className="w-full">{t('patient.addMedication')}</Button>
                     </div>
                   </DialogContent>
                 </Dialog>
@@ -288,14 +297,14 @@ export function PatientDashboard() {
                           {med.takenToday[index] ? (
                             <Badge className="bg-green-100 text-green-800 gap-2">
                               <Check className="w-4 h-4" />
-                              Taken
+                              {t('patient.taken')}
                             </Badge>
                           ) : (
-                            <Button 
+                            <Button
                               size="sm"
                               onClick={() => handleMarkAsTaken(med.id, index)}
                             >
-                              Mark as Taken
+                              {t('patient.markAsTaken')}
                             </Button>
                           )}
                         </div>
@@ -335,7 +344,7 @@ export function PatientDashboard() {
 
               <TabsContent value="history" className="space-y-4">
                 <Card className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+                  <h3 className="text-lg font-semibold mb-4">{t('patient.recentActivity')}</h3>
                   <div className="space-y-4">
                     {historyData.map((item, index) => (
                       <div key={index} className="flex items-center justify-between py-3 border-b last:border-0">
@@ -346,12 +355,12 @@ export function PatientDashboard() {
                         {item.status === "taken" ? (
                           <Badge className="bg-green-100 text-green-800 gap-2">
                             <Check className="w-4 h-4" />
-                            Taken
+                            {t('patient.taken')}
                           </Badge>
                         ) : (
                           <Badge className="bg-red-100 text-red-800 gap-2">
                             <X className="w-4 h-4" />
-                            Missed
+                            {t('patient.missed')}
                           </Badge>
                         )}
                       </div>
@@ -365,25 +374,25 @@ export function PatientDashboard() {
           {/* Right Column - Stats & Chart */}
           <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Weekly Adherence</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('patient.weeklyAdherence')}</h3>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={adherenceData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="day" />
                   <YAxis />
                   <Tooltip />
-                  <Area 
-                    type="monotone" 
-                    dataKey="rate" 
-                    stroke="#3b82f6" 
-                    fill="#93c5fd" 
+                  <Area
+                    type="monotone"
+                    dataKey="rate"
+                    stroke="#3b82f6"
+                    fill="#93c5fd"
                   />
                 </AreaChart>
               </ResponsiveContainer>
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Upcoming Reminders</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('patient.upcomingReminders')}</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
                   <Bell className="w-5 h-5 text-blue-600" />
@@ -410,13 +419,13 @@ export function PatientDashboard() {
             </Card>
 
             <Card className="p-6 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-              <h3 className="text-lg font-semibold mb-2">Upgrade to Premium</h3>
+              <h3 className="text-lg font-semibold mb-2">{t('patient.upgradeToPremium')}</h3>
               <p className="text-sm text-blue-100 mb-4">
-                Get unlimited medications, SMS reminders, and family access
+                {t('patient.premiumDesc')}
               </p>
               <Link to="/pricing">
                 <Button variant="secondary" className="w-full">
-                  View Plans
+                  {t('patient.viewPlans')}
                 </Button>
               </Link>
             </Card>

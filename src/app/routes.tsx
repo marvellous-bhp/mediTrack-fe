@@ -3,12 +3,17 @@ import { LandingPage } from "./pages/LandingPage";
 import { PatientDashboard } from "./pages/PatientDashboard";
 import { ClinicDashboard } from "./pages/ClinicDashboard";
 import { PricingPage } from "./pages/PricingPage";
+import { MobileApp } from "./pages/MobileApp";
 import { NotFound } from "./pages/NotFound";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: LandingPage,
+  },
+  {
+    path: "/mobile",
+    Component: MobileApp,
   },
   {
     path: "/patient",
