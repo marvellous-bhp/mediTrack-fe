@@ -245,9 +245,19 @@ export function PatientDashboard() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div>
-                        <Label>Time</Label>
-                        <Input type="time" />
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <Label>Time</Label>
+                          <Input type="time" />
+                        </div>
+                        <div>
+                          <Label>Begin Date</Label>
+                          <Input type="date" />
+                        </div>
+                        <div>
+                          <Label>End Date</Label>
+                          <Input type="date" />
+                        </div>
                       </div>
                       <Button className="w-full">Add Medication</Button>
                     </div>
