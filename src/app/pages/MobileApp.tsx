@@ -171,15 +171,15 @@ export function MobileApp() {
             <span className="text-xl font-bold">{takenToday}/{totalToday}</span>
           </div>
           <Progress value={adherenceRate} className="bg-white/20 h-2" />
-          <div className="flex justify-between items-center mt-3">
-            <span className="text-sm text-blue-100">{adherenceRate}% {t('mobile.completed')}</span>
-            <span className="text-sm text-blue-100">{t('patient.streak')}: 7 {t('mobile.daysStreak')} 🔥</span>
+          <div className="mt-3 flex flex-col gap-1 text-sm text-blue-100">
+            <span>{adherenceRate}% {t('mobile.completed')}</span>
+            <span>{t('patient.streak')}: 7 {t('mobile.daysStreak')} 🔥</span>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="px-4 -mt-4">
+      <div className="px-4 pt-4">
         {currentScreen === "home" && (
           <div className="space-y-4">
             {overdueMedications.length > 0 && (
@@ -327,11 +327,11 @@ export function MobileApp() {
 
         {currentScreen === "medications" && (
           <div className="space-y-4">
-            <div className="flex justify-between items-center mb-4">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-xl font-bold text-gray-900">{t('mobile.allMedications')}</h2>
               <Button
                 size="sm"
-                className="gap-1"
+                className="h-9 gap-1 whitespace-nowrap"
                 onClick={() => setIsAddDialogOpen(true)}
               >
                 <Plus className="w-4 h-4" />
@@ -459,11 +459,11 @@ export function MobileApp() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">{t('mobile.currentPlan')}</span>
-                  <Badge className="bg-blue-100 text-blue-800">{t('mobile.free')}</Badge>
+                  <Badge className="bg-blue-100 text-blue-800 whitespace-nowrap">{t('mobile.free')}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">{t('mobile.memberSince')}</span>
-                  <span className="font-medium">01/01/2026</span>
+                  <span className="font-medium whitespace-nowrap">01/01/2026</span>
                 </div>
               </div>
 
